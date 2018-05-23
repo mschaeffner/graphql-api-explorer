@@ -1,1 +1,1 @@
-# GrapQL API Explorer
+# GraphQL API Explorer
