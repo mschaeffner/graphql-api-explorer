@@ -5,8 +5,7 @@ import URLInput from './URLInput'
 import HeadersInput from './HeadersInput'
 
 const DialogBackground = styled.div`
-  background-color: black;
-  opacity: 0.8;
+  background-color: rgba(0, 0 ,0 ,0.8);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -31,12 +30,12 @@ const DialogHead = styled.div`
   line-height: 40px;
   font-size: 16px;
   font-weight: bold;
-  padding-left: 10px;
+  padding-left: 15px;
 `;
 
 const DialogBody = styled.div`
   background-color: white;
-  padding: 10px;
+  padding: 20px 15px;
   height: 300px;
   overflow: auto;
 `;
@@ -53,7 +52,7 @@ const DialogFooter = styled.div`
 const CloseIcon = styled.span`
   float: right;
   font-size: 24px;
-  padding: 0 10px;
+  padding: 0 15px;
   cursor: pointer;
 `;
 
@@ -94,14 +93,7 @@ export default class Dialog extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      method: 'POST',
-      url: '',
-      headers: [
-        {key: 'Content-Type', value: 'application/json'},
-        {key: 'Authorization', value: 'Bearer acsascsacsac'},
-      ]
-    }
+    this.state = this.props.config
   }
 
   addHeader() {
@@ -168,7 +160,7 @@ export default class Dialog extends React.Component {
           </DialogBody>
 
           <DialogFooter>
-            <Button>Explore</Button>
+            <Button onClick={() => this.props.submitDialog(this.state)}>Explore</Button>
           </DialogFooter>
 
         </DialogContainer>

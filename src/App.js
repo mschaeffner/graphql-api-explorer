@@ -17,24 +17,59 @@ export default class Foo extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      dialogVisible: true
+      dialogVisible: false,
+      graphiqlVisible: false,
+      config: {
+        method: 'GET',
+        url: '',
+        headers: []
+      }
     }
   }
 
-  closeDialog() {
-    this.setState({dialogVisible: false})
+  componentDidMount() {
+    const configStr = localStorage.getItem('config')
+    if(configStr) {
+      const config = JSON.parse(configStr)
+      this.setState({config, dialogVisible: true})
+    } else {
+      this.setState({dialogVisible: true})
+    }
   }
 
   openDialog() {
     this.setState({dialogVisible: true})
   }
 
+  closeDialog() {
+    this.setState({dialogVisible: false})
+  }
+
+  submitDialog(config) {
+    this.setState({config, graphiqlVisible: true})
+    localStorage.setItem('config', JSON.stringify(config))
+    this.closeDialog()
+  }
+
   render() {
     return(
       <App>
-        <Header openDialog={() => this.openDialog()} />
-        {false && <GraphiQLBody />}
-        {this.state.dialogVisible && <Dialog closeDialog={() => this.closeDialog()} />}
+
+        <Header
+          openDialog={() => this.openDialog()}
+          config={this.state.config}
+        />
+
+        {this.state.graphiqlVisible && <GraphiQLBody config={this.state.config} />}
+
+        {this.state.dialogVisible &&
+          <Dialog
+            config={this.state.config}
+            closeDialog={() => this.closeDialog()}
+            submitDialog={(config) => this.submitDialog(config)}
+          />
+        }
+
       </App>
     )
   }

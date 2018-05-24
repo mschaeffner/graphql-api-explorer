@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const URLInput = styled.input`
-  width: 100%;
+  width: calc(100% - 30px);
   box-sizing: border-box;
   padding: 5px;
   font-size: 16px;

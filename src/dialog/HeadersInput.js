@@ -24,11 +24,19 @@ const ValueInput = styled.input`
 
 const RemoveButton = styled.div`
   display: inline-block;
+  font-size: 24px;
+  cursor: pointer;
+  width: 20px;
 `;
 
-const AddLink = styled.a`
+const AddLink = styled.div`
+  display: inline-block;
   font-size: 12px;
   margin-left: 5px;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  padding-top: ${props => props.noHeaderInputs ? '7px' : '0px'};
 `;
 
 export default ({headers, addHeader, removeHeader, updateHeader}) =>
@@ -42,7 +50,9 @@ export default ({headers, addHeader, removeHeader, updateHeader}) =>
       </Row>
     )}
 
-    <AddLink href='#' onClick={() => {addHeader(); return false;}}>Add header</AddLink>
+    <AddLink onClick={() => addHeader()} noHeaderInputs={!headers.length}>
+      Add header
+    </AddLink>
 
   </div>
 
